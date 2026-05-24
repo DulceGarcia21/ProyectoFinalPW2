@@ -39,15 +39,52 @@ const agregarBicitaxi = (req, res) => {
 
 const eliminarBicitaxi = (req, res) => {
     const { matricula } = req.params;
-
     bicitaxiModel.eliminarBicitaxi(matricula, (error) => {
         if (error) {
             console.log(error);
             return res.send('Error al eliminar bicitaxi');
         }
-
         res.redirect('/bicitaxis');
     });
+};
+
+const mostrarEditarBicitaxi = (req, res) => {
+    const { matricula } = req.params;
+    bicitaxiModel.getBicitaxiByMatricula(matricula, (error, bicitaxi) => {
+        if (error) {
+            console.log(error);
+            return res.send('Error al obtener bicitaxi');
+        }
+        conductorModel.getAllConductores((error, conductores) => {
+            if (error) {
+                console.log(error);
+                return res.send('Error al obtener conductores');
+            }
+            res.render('editarBicitaxi', {
+                bicitaxi: bicitaxi,
+                conductores: conductores,
+                usuario: req.session.usuario
+            });
+        });
+    });
+};
+
+const actualizarBicitaxi = (req, res) => {
+    const { matricula } = req.params;
+    const { estado, descripcion, id_conductor } = req.body;
+    bicitaxiModel.actualizarBicitaxi(
+        matricula,
+        estado,
+        descripcion,
+        id_conductor,
+        (error) => {
+            if (error) {
+                console.log(error);
+                return res.send('Error al actualizar bicitaxi');
+            }
+            res.redirect('/bicitaxis');
+        }
+    );
 };
 
 const conductorModel = require('../models/conductorModel');
@@ -55,5 +92,7 @@ const conductorModel = require('../models/conductorModel');
 module.exports = {
     mostrarBicitaxis,
     agregarBicitaxi,
-    eliminarBicitaxi
+    eliminarBicitaxi,
+    mostrarEditarBicitaxi,
+    actualizarBicitaxi
 };

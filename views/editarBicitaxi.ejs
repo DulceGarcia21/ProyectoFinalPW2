@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Bicitaxi</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Editar Bicitaxi</h1>
+        <form action="/bicitaxis/editar/<%= bicitaxi.matricula %>" method="POST">
+
+            <label>Matrícula:</label>
+            <input type="text" value="<%= bicitaxi.matricula %>" disabled>
+
+            <label>Estado:</label>
+            <select name="estado" required>
+                <option value="disponible" <%= bicitaxi.estado === 'disponible' ? 'selected' : '' %>>Disponible</option>
+                <option value="fuera_servicio" <%= bicitaxi.estado === 'fuera_servicio' ? 'selected' : '' %>>Fuera de servicio</option>
+                <option value="mantenimiento" <%= bicitaxi.estado === 'mantenimiento' ? 'selected' : '' %>>Mantenimiento</option>
+                <option value="en_viaje" <%= bicitaxi.estado === 'en_viaje' ? 'selected' : '' %>>En viaje</option>
+            </select>
+
+            <label>Descripción:</label>
+            <textarea name="descripcion"><%= bicitaxi.descripcion %></textarea>
+
+            <label>Conductor:</label>
+            <select name="id_conductor">
+                <option value="">Sin conductor</option>
+                <% conductores.forEach(conductor => { %>
+                    <option 
+                        value="<%= conductor.id_conductor %>"
+                        <%= bicitaxi.id_conductor === conductor.id_conductor ? 'selected' : '' %>>
+                        <%= conductor.nombre %>
+                    </option>
+                <% }) %>
+            </select>
+            <button type="submit">Guardar cambios</button>
+        </form>
+        <a href="/bicitaxis">Volver</a>
+
+    </div>
+
+</body>
+</html>

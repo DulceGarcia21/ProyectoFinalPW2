@@ -253,3 +253,49 @@ table tr:hover{
 
     padding: 20px;
 }
+
+.acciones{
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+/* QUITA ESTILO DEL FORM */
+
+.acciones form{
+
+    background: none;
+
+    padding: 0;
+
+    margin: 0;
+
+    box-shadow: none;
+}
+
+/* BOTON EDITAR */
+
+.btn-editar{
+
+    background-color: var(--verde-principal);
+
+    color: var(--blanco);
+
+    text-decoration: none;
+
+    padding: 10px 20px;
+
+    border-radius: 5px;
+
+    transition: 0.3s;
+
+    display: inline-block;
+}
+
+.btn-editar:hover{
+
+    background-color: var(--verde-brillante);
+}
