@@ -13,4 +13,6 @@ router.get('/bicitaxis', verificarSesion, bicitaxiController.mostrarBicitaxis);
 
 router.post('/bicitaxis/agregar', verificarAdmin, bicitaxiController.agregarBicitaxi);
 
+router.post('/bicitaxis/eliminar/:matricula', verificarAdmin, bicitaxiController.eliminarBicitaxi);
+
 module.exports = router;

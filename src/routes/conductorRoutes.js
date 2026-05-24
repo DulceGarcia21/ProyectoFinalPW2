@@ -8,4 +8,10 @@ router.get('/conductores', verificarSesion, conductorController.mostrarConductor
 
 router.post('/conductores/agregar', verificarAdmin, conductorController.agregarConductor);
 
+router.post(
+    '/conductores/eliminar/:id',
+    verificarAdmin,
+    conductorController.eliminarConductor
+);
+
 module.exports = router;

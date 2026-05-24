@@ -26,6 +26,7 @@ descripcion TEXT,
 id_conductor INT UNIQUE,
 fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY(id_conductor) REFERENCES conductores(id_conductor)
+ON DELETE SET NULL
 );
 
 CREATE TABLE mantenimientos(
@@ -37,6 +38,7 @@ fecha_fin DATE,
 costo DECIMAL(10,2),
 estado ENUM('pendiente','en_proceso','terminado') DEFAULT 'pendiente',
 FOREIGN KEY(matricula_bicitaxi) REFERENCES bicitaxis(matricula)
+ON DELETE CASCADE
 );
 
 CREATE TABLE reportes(
@@ -46,8 +48,10 @@ matricula_bicitaxi VARCHAR(5) NOT NULL,
 descripcion TEXT NOT NULL,
 fecha_reporte TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 estado ENUM('nuevo','revisado','resuelto') DEFAULT 'nuevo',
-FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario),
+FOREIGN KEY(id_usuario) REFERENCES usuarios(id_usuario)
+ON DELETE SET NULL,
 FOREIGN KEY(matricula_bicitaxi) REFERENCES bicitaxis(matricula)
+ON DELETE CASCADE
 );
 
 CREATE TABLE viajes(
@@ -58,6 +62,7 @@ fecha_llegada DATETIME,
 estado ENUM('en_viaje','finalizado') DEFAULT 'en_viaje',
 observaciones TEXT,
 FOREIGN KEY(matricula_bicitaxi) REFERENCES bicitaxis(matricula)
+ON DELETE CASCADE
 );
 
 INSERT INTO usuarios(nombre,correo,contraseña,rol) VALUES

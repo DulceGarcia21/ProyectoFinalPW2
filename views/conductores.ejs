@@ -40,6 +40,7 @@
             <th>Teléfono</th>
             <th>Licencia</th>
             <th>Estado</th>
+            <th>Acciones</th>
         </tr>
 
         <% conductores.forEach(conductor => { %>
@@ -49,6 +50,15 @@
                 <td><%= conductor.telefono %></td>
                 <td><%= conductor.licencia %></td>
                 <td><%= conductor.estado %></td>
+                <td>
+                    <% if (usuario && usuario.rol === 'admin') { %>
+                        <form action="/conductores/eliminar/<%= conductor.id_conductor %>" method="POST">
+                            <button type="submit">
+                                Eliminar
+                            </button>
+                        </form>
+                    <% } %>
+                </td>
             </tr>
         <% }) %>
     </table>

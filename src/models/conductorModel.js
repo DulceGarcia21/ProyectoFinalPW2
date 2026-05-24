@@ -29,7 +29,19 @@ const agregarConductor = (nombre, telefono, licencia, estado, callback) => {
     });
 };
 
+const eliminarConductor = (id_conductor, callback) => {
+    const query = 'DELETE FROM conductores WHERE id_conductor = ?';
+    connection.query(query, [id_conductor], (error, results) => {
+        if (error) {
+            callback(error, null);
+            return;
+        }
+        callback(null, results);
+    });
+};
+
 module.exports = {
     getAllConductores,
-    agregarConductor
+    agregarConductor,
+    eliminarConductor
 };

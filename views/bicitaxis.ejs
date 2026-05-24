@@ -48,6 +48,7 @@
             <th>Matrícula</th>
             <th>Estado</th>
             <th>Descripción</th>
+            <th>Acciones</th>
         </tr>
 
         <% bicitaxis.forEach(bicitaxi => { %>
@@ -56,10 +57,17 @@
                 <td><%= bicitaxi.matricula %></td>
                 <td><%= bicitaxi.estado %></td>
                 <td><%= bicitaxi.descripcion %></td>
+                <td>
+                    <% if (usuario && usuario.rol === 'admin') { %>
+                        <form action="/bicitaxis/eliminar/<%= bicitaxi.matricula %>" method="POST">
+                            <button type="submit">
+                                Eliminar
+                            </button>
+                        </form>
+                    <% } %>
+                </td>
             </tr>
-
         <% }) %>
-
     </table>
 </body>
 </html>

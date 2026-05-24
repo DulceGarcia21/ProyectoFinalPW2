@@ -37,9 +37,23 @@ const agregarBicitaxi = (req, res) => {
     );
 };
 
+const eliminarBicitaxi = (req, res) => {
+    const { matricula } = req.params;
+
+    bicitaxiModel.eliminarBicitaxi(matricula, (error) => {
+        if (error) {
+            console.log(error);
+            return res.send('Error al eliminar bicitaxi');
+        }
+
+        res.redirect('/bicitaxis');
+    });
+};
+
 const conductorModel = require('../models/conductorModel');
 
 module.exports = {
     mostrarBicitaxis,
-    agregarBicitaxi
+    agregarBicitaxi,
+    eliminarBicitaxi
 };

@@ -27,7 +27,19 @@ const agregarConductor = (req, res) => {
     });
 };
 
+const eliminarConductor = (req, res) => {
+    const { id } = req.params;
+    conductorModel.eliminarConductor(id, (error) => {
+        if (error) {
+            console.log(error);
+            return res.send('Error al eliminar conductor');
+        }
+        res.redirect('/conductores');
+    });
+};
+
 module.exports = {
     mostrarConductores,
-    agregarConductor
+    agregarConductor,
+    eliminarConductor
 };

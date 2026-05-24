@@ -30,7 +30,20 @@ const agregarBicitaxi = (matricula, estado, descripcion, id_conductor, callback)
     });
 };
 
+const eliminarBicitaxi = (matricula, callback) => {
+    const query = 'DELETE FROM bicitaxis WHERE matricula = ?';
+
+    connection.query(query, [matricula], (error, results) => {
+        if (error) {
+            callback(error, null);
+            return;
+        }
+        callback(null, results);
+    });
+};
+
 module.exports = {
     getAllBicitaxis,
-    agregarBicitaxi
+    agregarBicitaxi,
+    eliminarBicitaxi
 };
