@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Mantenimiento</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Editar Mantenimiento</h1>
+        <form action="/mantenimientos/editar/<%= mantenimiento.id_mantenimiento %>" method="POST">
+
+            <label>Bicitaxi:</label>
+            <select name="matricula_bicitaxi" required>
+                <% bicitaxis.forEach(bicitaxi => { %>
+                    <option
+                        value="<%= bicitaxi.matricula %>"
+                        <%= mantenimiento.matricula_bicitaxi === bicitaxi.matricula ? 'selected' : '' %>
+                    >
+                        <%= bicitaxi.matricula %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label>Descripción:</label>
+            <textarea name="descripcion" required><%= mantenimiento.descripcion %></textarea>
+
+            <label>Fecha inicio:</label>
+            <input
+                type="date"
+                name="fecha_inicio"
+                value="<%= mantenimiento.fecha_inicio ? mantenimiento.fecha_inicio.toISOString().split('T')[0] : '' %>"
+                required>
+
+            <label>Fecha fin:</label>
+            <input
+                type="date"
+                name="fecha_fin"
+                value="<%= mantenimiento.fecha_fin ? mantenimiento.fecha_fin.toISOString().split('T')[0] : '' %>">
+
+            <label>Costo:</label>
+            <input
+                type="number"
+                step="0.01"
+                name="costo"
+                value="<%= mantenimiento.costo %>">
+            <label>Estado:</label>
+            <select name="estado" required>
+                <option value="pendiente" <%= mantenimiento.estado === 'pendiente' ? 'selected' : '' %>>
+                    Pendiente
+                </option>
+
+                <option value="en_proceso" <%= mantenimiento.estado === 'en_proceso' ? 'selected' : '' %>>
+                    En proceso
+                </option>
+
+                <option value="terminado" <%= mantenimiento.estado === 'terminado' ? 'selected' : '' %>>
+                    Terminado
+                </option>
+            </select>
+            <button type="submit">Guardar cambios</button>
+        </form>
+        <a href="/mantenimientos">Volver</a>
+    </div>
+</body>
+</html>
