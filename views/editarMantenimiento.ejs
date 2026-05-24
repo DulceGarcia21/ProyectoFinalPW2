@@ -16,8 +16,7 @@
             <label>Bicitaxi:</label>
             <select name="matricula_bicitaxi" required>
                 <% bicitaxis.forEach(bicitaxi => { %>
-                    <option
-                        value="<%= bicitaxi.matricula %>"
+                    <option value="<%= bicitaxi.matricula %>"
                         <%= mantenimiento.matricula_bicitaxi === bicitaxi.matricula ? 'selected' : '' %>
                     >
                         <%= bicitaxi.matricula %>

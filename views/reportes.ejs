@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Reportes</h1>
+        <h2>Agregar reporte</h2>
+        <form action="/reportes/agregar" method="POST">
+
+            <label>Bicitaxi:</label>
+            <select name="matricula_bicitaxi" required>
+                <% bicitaxis.forEach(bicitaxi => { %>
+                    <option value="<%= bicitaxi.matricula %>">
+                        <%= bicitaxi.matricula %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label>Descripción:</label>
+            <textarea name="descripcion" required></textarea>
+
+            <label>Estado:</label>
+            <select name="estado">
+                <option value="nuevo">Nuevo</option>
+                <option value="revisado">Revisado</option>
+                <option value="resuelto">Resuelto</option>
+
+            </select>
+            <button type="submit">Agregar</button>
+        </form>
+        <h2>Lista de reportes</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Usuario</th>
+                <th>Bicitaxi</th>
+                <th>Descripción</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+                <th>Acciones</th>
+            </tr>
+
+            <% reportes.forEach(reporte => { %>
+                <tr>
+                    <td><%= reporte.id_reporte %></td>
+                    <td><%= reporte.usuario_nombre %></td>
+                    <td><%= reporte.matricula_bicitaxi %></td>
+                    <td><%= reporte.descripcion %></td>
+                    <td><%= reporte.estado %></td>
+                    <td>
+                        <%= new Date(reporte.fecha_reporte).toLocaleString('es-MX', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) %>
+                    </td>
+                    <td>
+                        <% if (usuario && usuario.rol === 'admin') { %>
+                            <div class="acciones">
+                                <a href="/reportes/editar/<%= reporte.id_reporte %>"class="btn-editar">
+                                    Editar
+                                </a>
+                                <form action="/reportes/eliminar/<%= reporte.id_reporte %>" method="POST">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>

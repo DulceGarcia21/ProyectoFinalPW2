@@ -64,8 +64,12 @@
                     <td><%= mantenimiento.id_mantenimiento %></td>
                     <td><%= mantenimiento.matricula_bicitaxi %></td>
                     <td><%= mantenimiento.descripcion %></td>
-                    <td><%= mantenimiento.fecha_inicio %></td>
-                    <td><%= mantenimiento.fecha_fin ? mantenimiento.fecha_fin : 'Sin finalizar' %></td>
+                    <td><%= new Date(mantenimiento.fecha_inicio).toLocaleDateString('es-MX') %></td>
+                    <td><%= mantenimiento.fecha_fin
+                            ? new Date(mantenimiento.fecha_fin).toLocaleDateString('es-MX')
+                            : 'Sin finalizar'
+                        %>
+                    </td> 
                     <td><%= mantenimiento.costo ? '$' + mantenimiento.costo : 'Sin costo' %></td>
                     <td><%= mantenimiento.estado %></td>
                     <td>

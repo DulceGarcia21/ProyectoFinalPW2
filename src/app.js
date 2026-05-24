@@ -20,6 +20,7 @@ const bicitaxiRoutes = require('./routes/bicitaxiRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const conductorRoutes = require('./routes/conductorRoutes');
 const mantenimientoRoutes = require('./routes/mantenimientoRoutes');
+const reporteRoutes = require('./routes/reporteRoutes');
 
 // Configurar EJS
 app.set('view engine', 'ejs');
@@ -37,6 +38,7 @@ app.use('/', bicitaxiRoutes);
 app.use('/', loginRoutes);
 app.use('/', conductorRoutes);
 app.use('/', mantenimientoRoutes);
+app.use('/', reporteRoutes);
 
 
 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Reporte</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Editar Reporte</h1>
+        <form action="/reportes/editar/<%= reporte.id_reporte %>" method="POST">
+
+            <label>Bicitaxi:</label>
+            <select name="matricula_bicitaxi" required>
+                <% bicitaxis.forEach(bicitaxi => { %>
+                    <option 
+                        value="<%= bicitaxi.matricula %>"
+                        <%= reporte.matricula_bicitaxi === bicitaxi.matricula ? 'selected' : '' %>
+                    >
+                        <%= bicitaxi.matricula %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label>Descripción:</label>
+            <textarea name="descripcion" required><%= reporte.descripcion %></textarea>
+
+            <label>Estado:</label>
+            <select name="estado">
+                <option 
+                    value="nuevo"
+                    <%= reporte.estado === 'nuevo' ? 'selected' : '' %>
+                >
+                    Nuevo
+                </option>
+                <option 
+                    value="revisado"
+                    <%= reporte.estado === 'revisado' ? 'selected' : '' %>
+                >
+                    Revisado
+                </option>
+                <option 
+                    value="resuelto"
+                    <%= reporte.estado === 'resuelto' ? 'selected' : '' %>
+                >
+                    Resuelto
+                </option>
+            </select>
+            <button type="submit">
+                Guardar cambios
+            </button>
+        </form>
+        <a href="/reportes">Volver</a>
+    </div>
+</body>
+</html>
