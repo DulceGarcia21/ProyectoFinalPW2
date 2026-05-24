@@ -1,0 +1,56 @@
+<%- include('partials/menu') %>
+
+<div class="main-content">
+
+    <h1>Conductores</h1>
+
+    <% if (usuario && usuario.rol === 'admin') { %>
+
+        <h2>Agregar conductor</h2>
+
+        <form action="/conductores/agregar" method="POST">
+
+            <label>Nombre:</label>
+            <input type="text" name="nombre" required>
+
+            <label>Teléfono:</label>
+            <input type="text" name="telefono">
+
+            <label>Licencia:</label>
+            <input type="text" name="licencia">
+
+            <label>Estado:</label>
+            <select name="estado" required>
+                <option value="activo">Activo</option>
+                <option value="inactivo">Inactivo</option>
+            </select>
+
+            <button type="submit">Agregar</button>
+
+        </form>
+
+    <% } %>
+
+    <h2>Lista de conductores</h2>
+
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Licencia</th>
+            <th>Estado</th>
+        </tr>
+
+        <% conductores.forEach(conductor => { %>
+            <tr>
+                <td><%= conductor.id_conductor %></td>
+                <td><%= conductor.nombre %></td>
+                <td><%= conductor.telefono %></td>
+                <td><%= conductor.licencia %></td>
+                <td><%= conductor.estado %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+</div>

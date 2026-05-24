@@ -18,6 +18,7 @@ app.use(session({
 // Rutas
 const bicitaxiRoutes = require('./routes/bicitaxiRoutes');
 const loginRoutes = require('./routes/loginRoutes');
+const conductorRoutes = require('./routes/conductorRoutes');
 
 // Configurar EJS
 app.set('view engine', 'ejs');
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 // usar rutas
 app.use('/', bicitaxiRoutes);
 app.use('/', loginRoutes);
+app.use('/', conductorRoutes);
 
 
 

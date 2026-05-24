@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bicitaxis</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <%- include('menu') %>
+    <%- include('partials/menu') %>
     <h1>Lista de Bicitaxis</h1>
 
     <% if (usuario && usuario.rol === 'admin') { %>
@@ -26,9 +27,17 @@
         <label>Descripción:</label>
         <textarea name="descripcion"></textarea>
 
-        <label>ID conductor:</label>
-        <input type="number" name="id_conductor">
-
+        <label>Conductor:</label>
+        <select name="id_conductor">
+            <option value="">
+                Sin conductor
+            </option>
+            <% conductores.forEach(conductor => { %>
+                <option value="<%= conductor.id_conductor %>">
+                    <%= conductor.nombre %>
+                </option>
+            <% }) %>
+        </select>
         <button type="submit">Agregar</button>
     </form>
     <% } %>
