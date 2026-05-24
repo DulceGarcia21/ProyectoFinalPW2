@@ -2,12 +2,22 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
+const session = require('express-session');
+
+require('./config/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(session({
+    secret: 'clave_secreta_bicitaxis',
+    resave: false,
+    saveUninitialized: false
+}));
+
 // Rutas
 const bicitaxiRoutes = require('./routes/bicitaxiRoutes');
+const loginRoutes = require('./routes/loginRoutes');
 
 // Configurar EJS
 app.set('view engine', 'ejs');
@@ -22,6 +32,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // usar rutas
 app.use('/', bicitaxiRoutes);
+app.use('/', loginRoutes);
 
 
 

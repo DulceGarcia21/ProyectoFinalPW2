@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicitaxis</title>
+</head>
+<body>
+    <%- include('menu') %>
+    <h1>Lista de Bicitaxis</h1>
+
+    <table border="1">
+
+        <tr>
+            <th>Matrícula</th>
+            <th>Estado</th>
+            <th>Descripción</th>
+        </tr>
+
+        <% bicitaxis.forEach(bicitaxi => { %>
+
+            <tr>
+                <td><%= bicitaxi.matricula %></td>
+                <td><%= bicitaxi.estado %></td>
+                <td><%= bicitaxi.descripcion %></td>
+            </tr>
+
+        <% }) %>
+
+    </table>
+</body>
+</html>
