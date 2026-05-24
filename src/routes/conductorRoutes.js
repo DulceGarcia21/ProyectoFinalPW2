@@ -14,4 +14,16 @@ router.post(
     conductorController.eliminarConductor
 );
 
+router.get(
+    '/conductores/editar/:id',
+    verificarAdmin,
+    conductorController.mostrarEditarConductor
+);
+
+router.post(
+    '/conductores/editar/:id',
+    verificarAdmin,
+    conductorController.actualizarConductor
+);
+
 module.exports = router;

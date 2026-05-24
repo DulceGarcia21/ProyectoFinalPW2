@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Conductor</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Editar Conductor</h1>
+        <form action="/conductores/editar/<%= conductor.id_conductor %>" method="POST">
+
+            <label>Nombre:</label>
+            <input
+                type="text"
+                name="nombre"
+                value="<%= conductor.nombre %>"
+                required
+            >
+
+            <label>Teléfono:</label>
+            <input
+                type="text"
+                name="telefono"
+                value="<%= conductor.telefono %>"
+            >
+
+            <label>Licencia:</label>
+            <input
+                type="text"
+                name="licencia"
+                value="<%= conductor.licencia %>"
+            >
+
+            <label>Estado:</label>
+            <select name="estado">
+                <option
+                    value="activo"
+                    <%= conductor.estado === 'activo' ? 'selected' : '' %>
+                >
+                    Activo
+                </option>
+
+                <option
+                    value="inactivo"
+                    <%= conductor.estado === 'inactivo' ? 'selected' : '' %>
+                >
+                    Inactivo
+                </option>
+            </select>
+            <button type="submit">Guardar cambios</button>
+        </form>
+        <a href="/conductores">Volver</a>
+    </div>
+</body>
+</html>
