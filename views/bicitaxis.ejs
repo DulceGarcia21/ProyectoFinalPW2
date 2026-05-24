@@ -9,6 +9,30 @@
     <%- include('menu') %>
     <h1>Lista de Bicitaxis</h1>
 
+    <% if (usuario && usuario.rol === 'admin') { %>
+    <h2>Agregar bicitaxi</h2>
+    <form action="/bicitaxis/agregar" method="POST">
+        <label>Matrícula:</label>
+        <input type="text" name="matricula" maxlength="5" required>
+
+        <label>Estado:</label>
+        <select name="estado" required>
+            <option value="disponible">Disponible</option>
+            <option value="fuera_servicio">Fuera de servicio</option>
+            <option value="mantenimiento">Mantenimiento</option>
+            <option value="en_viaje">En viaje</option>
+        </select>
+
+        <label>Descripción:</label>
+        <textarea name="descripcion"></textarea>
+
+        <label>ID conductor:</label>
+        <input type="number" name="id_conductor">
+
+        <button type="submit">Agregar</button>
+    </form>
+    <% } %>
+
     <table border="1">
 
         <tr>
