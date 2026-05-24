@@ -41,6 +41,34 @@ const iniciarSesion = (req, res) => {
 
 };
 
+const mostrarRegistro = (req, res) => {
+    res.render('registro', { error: null });
+};
+
+const registrarUsuario = (req, res) => {
+    const { nombre, correo, contraseña } = req.body;
+
+    usuarioModel.buscarUsuarioPorCorreo(correo, (error, usuarioExistente) => {
+        if (error) {
+            console.log(error);
+            return res.render('registro', { error: 'Error del servidor' });
+        }
+
+        if (usuarioExistente) {
+            return res.render('registro', { error: 'Ese correo ya está registrado' });
+        }
+
+        usuarioModel.registrarUsuario(nombre, correo, contraseña, (error) => {
+            if (error) {
+                console.log(error);
+                return res.render('registro', { error: 'No se pudo registrar el usuario' });
+            }
+
+            res.redirect('/login');
+        });
+    });
+};
+
 const cerrarSesion = (req, res) => {
 
     req.session.destroy(() => {
@@ -52,5 +80,7 @@ const cerrarSesion = (req, res) => {
 module.exports = {
     mostrarLogin,
     iniciarSesion,
-    cerrarSesion
+    cerrarSesion,
+    mostrarRegistro,
+    registrarUsuario
 };

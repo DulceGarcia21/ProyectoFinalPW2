@@ -8,6 +8,10 @@ router.get('/login', loginController.mostrarLogin);
 
 router.post('/login', loginController.iniciarSesion);
 
+router.get('/registro', loginController.mostrarRegistro);
+
+router.post('/registro', loginController.registrarUsuario);
+
 router.get('/logout', loginController.cerrarSesion);
 
 module.exports = router;
