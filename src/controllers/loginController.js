@@ -6,7 +6,7 @@ const mostrarLogin = (req, res) => {
 
 const iniciarSesion = (req, res) => {
 
-    const { correo, contraseña } = req.body;
+    const { correo, contrasena } = req.body;
 
     usuarioModel.buscarUsuarioPorCorreo(correo, (error, usuario) => {
 
@@ -23,7 +23,7 @@ const iniciarSesion = (req, res) => {
             });
         }
 
-        if (usuario.contraseña !== contraseña) {
+        if (usuario.contrasena !== contrasena) {
             return res.render('login', {
                 error: 'Contraseña incorrecta'
             });
@@ -46,7 +46,7 @@ const mostrarRegistro = (req, res) => {
 };
 
 const registrarUsuario = (req, res) => {
-    const { nombre, correo, contraseña } = req.body;
+    const { nombre, correo, contrasena } = req.body;
 
     usuarioModel.buscarUsuarioPorCorreo(correo, (error, usuarioExistente) => {
         if (error) {
@@ -58,7 +58,7 @@ const registrarUsuario = (req, res) => {
             return res.render('registro', { error: 'Ese correo ya está registrado' });
         }
 
-        usuarioModel.registrarUsuario(nombre, correo, contraseña, (error) => {
+        usuarioModel.registrarUsuario(nombre, correo, contrasena, (error) => {
             if (error) {
                 console.log(error);
                 return res.render('registro', { error: 'No se pudo registrar el usuario' });

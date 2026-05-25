@@ -13,13 +13,13 @@ const buscarUsuarioPorCorreo = (correo, callback) => {
     });
 };
 
-const registrarUsuario = (nombre, correo, contraseña, callback) => {
+const registrarUsuario = (nombre, correo, contrasena, callback) => {
     const query = `
-        INSERT INTO usuarios(nombre, correo, contraseña, rol)
+        INSERT INTO usuarios(nombre, correo, contrasena, rol)
         VALUES (?, ?, ?, 'usuario')
     `;
 
-    connection.query(query, [nombre, correo, contraseña], (error, results) => {
+    connection.query(query, [nombre, correo, contrasena], (error, results) => {
         if (error) {
             callback(error, null);
             return;

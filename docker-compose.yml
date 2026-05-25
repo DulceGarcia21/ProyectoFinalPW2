@@ -1,0 +1,39 @@
+services:
+  app:
+    build: .
+    container_name: bicitaxis_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_USER: root
+      DB_PASSWORD: root
+      DB_NAME: bicitaxis_db
+      DB_PORT: 3306
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  mysql:
+    image: mysql:8.0
+    container_name: bicitaxis_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bicitaxis_db
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/db.sql:/docker-entrypoint-initdb.d/db.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql_data:
