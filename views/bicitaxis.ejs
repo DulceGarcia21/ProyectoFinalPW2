@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,70 +8,89 @@
 </head>
 <body>
     <%- include('partials/menu') %>
-    <h1>Lista de Bicitaxis</h1>
 
-    <% if (usuario && usuario.rol === 'admin') { %>
-    <h2>Agregar bicitaxi</h2>
-    <form action="/bicitaxis/agregar" method="POST">
-        <label>Matrícula:</label>
-        <input type="text" name="matricula" maxlength="5" required>
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Lista de Bicitaxis</h1>
 
-        <label>Estado:</label>
-        <select name="estado" required>
-            <option value="disponible">Disponible</option>
-            <option value="fuera_servicio">Fuera de servicio</option>
-            <option value="mantenimiento">Mantenimiento</option>
-            <option value="en_viaje">En viaje</option>
-        </select>
+            <% if (usuario && usuario.rol === 'admin') { %>
+                <button type="button" onclick="toggleFormulario()" class="btn-agregar">
+                    + Agregar bicitaxi
+                </button>
+            <% } %>
+        </div>
 
-        <label>Descripción:</label>
-        <textarea name="descripcion"></textarea>
+        <% if (usuario && usuario.rol === 'admin') { %>
+            <div id="formularioBicitaxi" class="formulario-oculto">
+                <h2>Agregar bicitaxi</h2>
 
-        <label>Conductor:</label>
-        <select name="id_conductor">
-            <option value="">
-                Sin conductor
-            </option>
-            <% conductores.forEach(conductor => { %>
-                <option value="<%= conductor.id_conductor %>">
-                    <%= conductor.nombre %>
-                </option>
-            <% }) %>
-        </select>
-        <button type="submit">Agregar</button>
-    </form>
-    <% } %>
+                <form action="/bicitaxis/agregar" method="POST">
+                    <label>Matrícula:</label>
+                    <input type="text" name="matricula" maxlength="5" required>
 
-    <table border="1">
+                    <label>Estado:</label>
+                    <select name="estado" required>
+                        <option value="disponible">Disponible</option>
+                        <option value="fuera_servicio">Fuera de servicio</option>
+                        <option value="mantenimiento">Mantenimiento</option>
+                        <option value="en_viaje">En viaje</option>
+                    </select>
 
-        <tr>
-            <th>Matrícula</th>
-            <th>Estado</th>
-            <th>Descripción</th>
-            <th>Acciones</th>
-        </tr>
+                    <label>Descripción:</label>
+                    <textarea name="descripcion"></textarea>
 
-        <% bicitaxis.forEach(bicitaxi => { %>
+                    <label>Conductor:</label>
+                    <select name="id_conductor">
+                        <option value="">Sin conductor</option>
 
+                        <% conductores.forEach(conductor => { %>
+                            <option value="<%= conductor.id_conductor %>">
+                                <%= conductor.nombre %>
+                            </option>
+                        <% }) %>
+                    </select>
+
+                    <button type="submit">Agregar</button>
+                </form>
+            </div>
+        <% } %>
+
+        <table>
             <tr>
-                <td><%= bicitaxi.matricula %></td>
-                <td><%= bicitaxi.estado %></td>
-                <td><%= bicitaxi.descripcion %></td>
-                <td>
-                    <% if (usuario && usuario.rol === 'admin') { %>
-                        <div class="acciones">
-                            <a href="/bicitaxis/editar/<%= bicitaxi.matricula %>"class="btn-editar">
-                                Editar
-                            </a>
-                            <form 
-                                action="/bicitaxis/eliminar/<%= bicitaxi.matricula %>" method="POST">
-                                <button type="submit">Eliminar</button>
-                            </form>
-                        </div>
-                    <% } %>
-                </td>
+                <th>Matrícula</th>
+                <th>Estado</th>
+                <th>Descripción</th>
+                <th class="col-acciones">Acciones</th>
             </tr>
-        <% }) %>
-    </table>
+
+            <% bicitaxis.forEach(bicitaxi => { %>
+                <tr>
+                    <td><%= bicitaxi.matricula %></td>
+                    <td><%= bicitaxi.estado %></td>
+                    <td><%= bicitaxi.descripcion %></td>
+                    <td class="col-acciones">
+                        <% if (usuario && usuario.rol === 'admin') { %>
+                            <div class="acciones">
+                                <a href="/bicitaxis/editar/<%= bicitaxi.matricula %>" class="btn-editar">
+                                    Editar
+                                </a>
+
+                                <form action="/bicitaxis/eliminar/<%= bicitaxi.matricula %>" method="POST">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+
+    <script>
+        function toggleFormulario() {
+            const formulario = document.getElementById('formularioBicitaxi');
+            formulario.classList.toggle('mostrar-formulario');
+        }
+    </script>
 </body>
 </html>
