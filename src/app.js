@@ -22,6 +22,7 @@ const conductorRoutes = require('./routes/conductorRoutes');
 const mantenimientoRoutes = require('./routes/mantenimientoRoutes');
 const reporteRoutes = require('./routes/reporteRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const viajeRoutes = require('./routes/viajeRoutes');
 
 // Configurar EJS
 app.set('view engine', 'ejs');
@@ -41,7 +42,7 @@ app.use('/', conductorRoutes);
 app.use('/', mantenimientoRoutes);
 app.use('/', reporteRoutes);
 app.use('/', dashboardRoutes);
-
+app.use('/', viajeRoutes);
 
 
 // Iniciar servidor

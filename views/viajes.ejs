@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viajes</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('partials/menu') %>
+
+    <div class="main-content">
+        <h1>Viajes</h1>
+
+        <% if (usuario && usuario.rol === 'admin') { %>
+            <h2>Agregar viaje</h2>
+
+            <form action="/viajes/agregar" method="POST">
+                <label>Bicitaxi:</label>
+                <select name="matricula_bicitaxi" required>
+                    <% bicitaxis.forEach(bicitaxi => { %>
+                        <option value="<%= bicitaxi.matricula %>">
+                            <%= bicitaxi.matricula %>
+                        </option>
+                    <% }) %>
+                </select>
+
+                <label>Fecha salida:</label>
+                <input type="datetime-local" name="fecha_salida" required>
+
+                <label>Fecha llegada:</label>
+                <input type="datetime-local" name="fecha_llegada">
+
+                <label>Estado:</label>
+                <select name="estado" required>
+                    <option value="en_viaje">En viaje</option>
+                    <option value="finalizado">Finalizado</option>
+                </select>
+
+                <label>Observaciones:</label>
+                <textarea name="observaciones"></textarea>
+
+                <button type="submit">Agregar</button>
+            </form>
+        <% } %>
+
+        <h2>Lista de viajes</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Bicitaxi</th>
+                <th>Salida</th>
+                <th>Llegada</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
+            </tr>
+
+            <% viajes.forEach(viaje => { %>
+                <tr>
+                    <td><%= viaje.id_viaje %></td>
+                    <td><%= viaje.matricula_bicitaxi %></td>
+                    <td>
+                        <%= new Date(viaje.fecha_salida).toLocaleString('es-MX', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }) %>
+                    </td>
+                    <td>
+                        <%= viaje.fecha_llegada
+                            ? new Date(viaje.fecha_llegada).toLocaleString('es-MX', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                            })
+                            : 'Sin registrar'
+                        %>
+                    </td>
+                    <td><%= viaje.estado %></td>
+                    <td><%= viaje.observaciones %></td>
+                    <td>
+                        <% if (usuario && usuario.rol === 'admin') { %>
+                            <div class="acciones">
+                                <form action="/viajes/eliminar/<%= viaje.id_viaje %>" method="POST">
+                                    <button type="submit">Eliminar</button>
+                                </form>
+                            </div>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }) %>
+        </table>
+    </div>
+</body>
+</html>
