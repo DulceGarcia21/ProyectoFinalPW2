@@ -73,10 +73,23 @@ const actualizarConductor = (req, res) => {
     );
 };
 
+const descargarConductoresJSON = (req,res) => {
+    conductorModel.getAllConductores((error,conductores) => {
+        if(error){
+            console.log(error);
+            return res.send('Error al descargar conductores');
+        }
+        res.setHeader('Content-Disposition','attachment; filename=conductores.json');
+        res.setHeader('Content-Type','application/json');
+        res.send(JSON.stringify(conductores,null,2));
+    });
+};
+
 module.exports = {
     mostrarConductores,
     agregarConductor,
     eliminarConductor,
     mostrarEditarConductor,
-    actualizarConductor
+    actualizarConductor,
+    descargarConductoresJSON
 };

@@ -8,13 +8,22 @@
 </head>
 <body>
     <%- include('partials/menu') %>
-
     <div class="main-content">
-        <h1>Viajes</h1>
-
-        <% if (usuario && usuario.rol === 'admin') { %>
-            <h2>Agregar viaje</h2>
-
+        <div class="page-header">
+            <h1>Lista de Viajes</h1>
+            <% if(usuario && usuario.rol === 'admin'){ %>
+                <div class="header-buttons">
+                    <button type="button" onclick="toggleFormulario()" class="btn-agregar">
+                        + Agregar viaje
+                    </button>
+                    <a href="/viajes/descargar/json" class="btn-agregar">
+                        Exportar
+                    </a>
+                </div>
+            <% } %>
+        </div>
+        <% if(usuario && usuario.rol === 'admin'){ %>
+        <div id="formularioViajes" class="formulario-oculto">
             <form action="/viajes/agregar" method="POST">
                 <label>Bicitaxi:</label>
                 <select name="matricula_bicitaxi" required>
@@ -42,9 +51,8 @@
 
                 <button type="submit">Agregar</button>
             </form>
+        </div>
         <% } %>
-
-        <h2>Lista de viajes</h2>
 
         <table>
             <tr>
@@ -54,7 +62,7 @@
                 <th>Llegada</th>
                 <th>Estado</th>
                 <th>Observaciones</th>
-                <th>Acciones</th>
+                <th class="col-acciones">Acciones</th>
             </tr>
 
             <% viajes.forEach(viaje => { %>
@@ -84,7 +92,7 @@
                     </td>
                     <td><%= viaje.estado %></td>
                     <td><%= viaje.observaciones %></td>
-                    <td>
+                    <td class="col-acciones">
                         <% if (usuario && usuario.rol === 'admin') { %>
                             <div class="acciones">
                                 <a href="/viajes/editar/<%= viaje.id_viaje %>"class="btn-editar">
@@ -100,5 +108,11 @@
             <% }) %>
         </table>
     </div>
+    <script>
+    function toggleFormulario(){
+        const formulario = document.getElementById('formularioViajes');
+        formulario.classList.toggle('mostrar-formulario');
+    }
+    </script>
 </body>
 </html>

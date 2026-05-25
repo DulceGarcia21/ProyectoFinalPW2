@@ -113,10 +113,23 @@ const actualizarMantenimiento = (req, res) => {
     );
 };
 
+const descargarMantenimientosJSON = (req,res) => {
+    mantenimientoModel.getAllMantenimientos((error,mantenimientos) => {
+        if(error){
+            console.log(error);
+            return res.send('Error al descargar mantenimientos');
+        }
+        res.setHeader('Content-Disposition','attachment; filename=mantenimientos.json');
+        res.setHeader('Content-Type','application/json');
+        res.send(JSON.stringify(mantenimientos,null,2));
+    });
+};
+
 module.exports = {
     mostrarMantenimientos,
     agregarMantenimiento,
     eliminarMantenimiento,
     mostrarEditarMantenimiento,
-    actualizarMantenimiento
+    actualizarMantenimiento,
+    descargarMantenimientosJSON
 };

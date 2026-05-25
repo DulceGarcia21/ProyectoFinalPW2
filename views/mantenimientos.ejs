@@ -8,12 +8,23 @@
 <body>
 
     <%- include('partials/menu') %>
-    <div class="main-content">
-        <h1>Mantenimientos</h1>
-        <% if (usuario && usuario.rol === 'admin') { %>
-            <h2>Agregar mantenimiento</h2>
+    <div class="main-content"></div>
+        <div class="page-header">
+            <h1>Lista de Mantenimientos</h1>
+            <% if(usuario && usuario.rol === 'admin'){ %>
+                <div class="header-buttons">
+                    <button type="button" onclick="toggleFormulario()" class="btn-agregar">
+                        + Agregar mantenimiento
+                    </button>
+                    <a href="/mantenimientos/descargar/json" class="btn-agregar">
+                        Exportar
+                    </a>
+                </div>
+            <% } %>
+        </div>
+        <% if(usuario && usuario.rol === 'admin'){ %>
+        <div id="formularioMantenimientos" class="formulario-oculto">
             <form action="/mantenimientos/agregar" method="POST">
-
                 <label>Bicitaxi:</label>
                 <select name="matricula_bicitaxi" required>
                     <% bicitaxis.forEach(bicitaxi => { %>
@@ -43,9 +54,8 @@
                 </select>
                 <button type="submit">Agregar</button>
             </form>
-        <% } %>
-
-        <h2>Lista de mantenimientos</h2>
+        </div>
+        <% } %> 
 
         <table>
             <tr>
@@ -56,7 +66,7 @@
                 <th>Fin</th>
                 <th>Costo</th>
                 <th>Estado</th>
-                <th>Acciones</th>
+                <th class="col-acciones">Acciones</th>
             </tr>
 
             <% mantenimientos.forEach(mantenimiento => { %>
@@ -72,7 +82,7 @@
                     </td> 
                     <td><%= mantenimiento.costo ? '$' + mantenimiento.costo : 'Sin costo' %></td>
                     <td><%= mantenimiento.estado %></td>
-                    <td>
+                    <td class="col-acciones">
                         <% if (usuario && usuario.rol === 'admin') { %>
                             <div class="acciones">
                                 <a href="/mantenimientos/editar/<%= mantenimiento.id_mantenimiento %>"class="btn-editar">
@@ -88,5 +98,11 @@
             <% }) %>
         </table>
     </div>
+    <script>
+        function toggleFormulario(){
+            const formulario = document.getElementById('formularioMantenimientos');
+            formulario.classList.toggle('mostrar-formulario');
+        }
+    </script>
 </body>
 </html>

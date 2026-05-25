@@ -97,10 +97,23 @@ const actualizarReporte = (req, res) => {
     );
 };
 
+const descargarReportesJSON = (req,res) => {
+    reporteModel.getAllReportes((error,reportes) => {
+        if(error){
+            console.log(error);
+            return res.send('Error al descargar reportes');
+        }
+        res.setHeader('Content-Disposition','attachment; filename=reportes.json');
+        res.setHeader('Content-Type','application/json');
+        res.send(JSON.stringify(reportes,null,2));
+    });
+};
+
 module.exports = {
     mostrarReportes,
     agregarReporte,
     eliminarReporte,
     mostrarEditarReporte,
-    actualizarReporte
+    actualizarReporte,
+    descargarReportesJSON
 };

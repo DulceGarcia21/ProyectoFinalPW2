@@ -1,7 +1,12 @@
 const connection = require('../config/db');
 
 const getAllBicitaxis = (callback) => {
-    const query = 'SELECT * FROM bicitaxis';
+    const query = `
+        SELECT bicitaxis.*, conductores.nombre AS nombre_conductor
+        FROM bicitaxis
+        LEFT JOIN conductores
+        ON bicitaxis.id_conductor = conductores.id_conductor
+    `;
     connection.query(query, (error, results) => {
         if (error) {
             callback(error, null);

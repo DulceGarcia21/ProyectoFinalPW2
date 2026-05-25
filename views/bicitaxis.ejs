@@ -11,12 +11,18 @@
 
     <div class="main-content">
         <div class="page-header">
+
             <h1>Lista de Bicitaxis</h1>
 
             <% if (usuario && usuario.rol === 'admin') { %>
-                <button type="button" onclick="toggleFormulario()" class="btn-agregar">
-                    + Agregar bicitaxi
-                </button>
+                <div class="header-buttons">
+                            <button type="button"onclick="toggleFormulario()" class="btn-agregar">
+                                + Agregar bicitaxi
+                            </button>
+                            <a href="/bicitaxis/descargar/json" class="btn-agregar">
+                                Exportar
+                            </a>
+                </div>
             <% } %>
         </div>
 
@@ -60,6 +66,7 @@
                 <th>Matrícula</th>
                 <th>Estado</th>
                 <th>Descripción</th>
+                <th>Conductor</th>
                 <th class="col-acciones">Acciones</th>
             </tr>
 
@@ -68,6 +75,7 @@
                     <td><%= bicitaxi.matricula %></td>
                     <td><%= bicitaxi.estado %></td>
                     <td><%= bicitaxi.descripcion %></td>
+                    <td><%= bicitaxi.nombre_conductor ? bicitaxi.nombre_conductor : 'Sin conductor' %></td>
                     <td class="col-acciones">
                         <% if (usuario && usuario.rol === 'admin') { %>
                             <div class="acciones">

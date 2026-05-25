@@ -15,4 +15,6 @@ router.get('/bicitaxis/editar/:matricula', verificarAdmin, bicitaxiController.mo
 
 router.post('/bicitaxis/editar/:matricula', verificarAdmin, bicitaxiController.actualizarBicitaxi);
 
+router.get('/bicitaxis/descargar/json', verificarSesion, bicitaxiController.descargarBicitaxisJSON);
+
 module.exports = router;

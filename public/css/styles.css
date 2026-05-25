@@ -123,39 +123,29 @@ button:hover{
 /* TABLAS */
 
 table{
-
     width: 100%;
-
     border-collapse: collapse;
-
     background-color: var(--blanco);
-
     border-radius: 10px;
-
     overflow: hidden;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.08);
 }
 
 table th{
-
     background-color: var(--verde-principal);
-
     color: var(--blanco);
-
-    padding: 12px;
+    padding: 14px;
+    border: 1px solid #dcdcdc;
 }
 
 table td{
-
-    padding: 12px;
-
-    border-bottom: 1px solid #ddd;
+    padding: 14px;
+    border: 1px solid #dcdcdc;
 }
 
 table tr:hover{
-
     background-color: var(--gris-claro);
 }
-
 /* MENSAJES ERROR */
 
 .error{
@@ -351,14 +341,36 @@ table tr:hover{
 }
 
 .btn-agregar{
-    margin-bottom: 20px;
+    background-color: var(--verde-principal);
+    color: var(--blanco);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+}
+
+.btn-agregar:hover{
+    background-color: var(--verde-brillante);
 }
 
 .col-acciones{
-    width: 180px;
+    width: 140px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .acciones{
     justify-content: center;
+}
+
+.header-buttons{
+    display: flex;
+    gap: 15px;
 }

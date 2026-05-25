@@ -14,4 +14,6 @@ router.get('/viajes/editar/:id',verificarAdmin,viajeController.mostrarEditarViaj
 
 router.post('/viajes/editar/:id',verificarAdmin,viajeController.actualizarViaje);
 
+router.get('/viajes/descargar/json',verificarAdmin,viajeController.descargarViajesJSON);
+
 module.exports = router;

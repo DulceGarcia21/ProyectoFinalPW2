@@ -103,10 +103,23 @@ const actualizarViaje = (req, res) => {
     );
 };
 
+const descargarViajesJSON = (req,res) => {
+    viajeModel.getAllViajes((error,viajes) => {
+        if(error){
+            console.log(error);
+            return res.send('Error al descargar viajes');
+        }
+        res.setHeader('Content-Disposition','attachment; filename=viajes.json');
+        res.setHeader('Content-Type','application/json');
+        res.send(JSON.stringify(viajes,null,2));
+    });
+};
+
 module.exports = {
     mostrarViajes,
     agregarViaje,
     eliminarViaje,
     mostrarEditarViaje,
-    actualizarViaje
+    actualizarViaje,
+    descargarViajesJSON
 };

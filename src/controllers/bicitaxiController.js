@@ -87,6 +87,18 @@ const actualizarBicitaxi = (req, res) => {
     );
 };
 
+const descargarBicitaxisJSON = (req, res) => {
+    bicitaxiModel.getAllBicitaxis((error, bicitaxis) => {
+        if (error) {
+            console.log(error);
+            return res.send('Error al descargar bicitaxis');
+        }
+        res.setHeader('Content-Disposition', 'attachment; filename=bicitaxis.json');
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(bicitaxis, null, 2));
+    });
+};
+
 const conductorModel = require('../models/conductorModel');
 
 module.exports = {
@@ -94,5 +106,6 @@ module.exports = {
     agregarBicitaxi,
     eliminarBicitaxi,
     mostrarEditarBicitaxi,
-    actualizarBicitaxi
+    actualizarBicitaxi,
+    descargarBicitaxisJSON
 };
