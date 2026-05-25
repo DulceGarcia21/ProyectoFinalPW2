@@ -56,8 +56,57 @@ const eliminarViaje = (req, res) => {
     });
 };
 
+const mostrarEditarViaje = (req, res) => {
+    const { id } = req.params;
+    viajeModel.getViajeById(id, (error, viaje) => {
+        if (error) {
+            console.log(error);
+            return res.send('Error al obtener viaje');
+        }
+        bicitaxiModel.getAllBicitaxis((error, bicitaxis) => {
+            if (error) {
+                console.log(error);
+                return res.send('Error al obtener bicitaxis');
+            }
+            res.render('editarViaje', {
+                viaje: viaje,
+                bicitaxis: bicitaxis,
+                usuario: req.session.usuario
+            });
+        });
+    });
+};
+
+const actualizarViaje = (req, res) => {
+    const { id } = req.params;
+    const {
+        matricula_bicitaxi,
+        fecha_salida,
+        fecha_llegada,
+        estado,
+        observaciones
+    } = req.body;
+    viajeModel.actualizarViaje(
+        id,
+        matricula_bicitaxi,
+        fecha_salida,
+        fecha_llegada,
+        estado,
+        observaciones,
+        (error) => {
+            if (error) {
+                console.log(error);
+                return res.send('Error al actualizar viaje');
+            }
+            res.redirect('/viajes');
+        }
+    );
+};
+
 module.exports = {
     mostrarViajes,
     agregarViaje,
-    eliminarViaje
+    eliminarViaje,
+    mostrarEditarViaje,
+    actualizarViaje
 };

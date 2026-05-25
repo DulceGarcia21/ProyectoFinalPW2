@@ -6,7 +6,6 @@ const getResumenDashboard = (callback) => {
         (SELECT COUNT(*) FROM bicitaxis) AS total_bicitaxis,
         (SELECT COUNT(*) FROM bicitaxis WHERE estado = 'disponible') AS disponibles,
         (SELECT COUNT(*) FROM bicitaxis WHERE estado = 'mantenimiento') AS mantenimiento,
-        (SELECT COUNT(*) FROM bicitaxis WHERE estado = 'en_viaje') AS en_viaje,
         (SELECT COUNT(*) FROM reportes WHERE estado = 'nuevo') AS reportes_nuevos,
         (SELECT COUNT(*) FROM mantenimientos WHERE estado = 'pendiente') AS mantenimientos_pendientes,
         (SELECT COUNT(*) FROM conductores WHERE estado = 'activo') AS conductores_activos,

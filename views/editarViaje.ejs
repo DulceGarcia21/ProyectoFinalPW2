@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Viaje</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <%- include('partials/menu') %>
+    <div class="main-content">
+        <h1>Editar Viaje</h1>
+        <form action="/viajes/editar/<%= viaje.id_viaje %>" method="POST">
+
+            <label>Bicitaxi:</label>
+            <select name="matricula_bicitaxi" required>
+                <% bicitaxis.forEach(bicitaxi => { %>
+                    <option
+                        value="<%= bicitaxi.matricula %>"
+                        <%= viaje.matricula_bicitaxi === bicitaxi.matricula ? 'selected' : '' %>
+                    >
+                        <%= bicitaxi.matricula %>
+                    </option>
+                <% }) %>
+            </select>
+
+            <label>Fecha salida:</label>
+            <input
+                type="datetime-local"
+                name="fecha_salida"
+                value="<%= new Date(viaje.fecha_salida).toISOString().slice(0,16) %>"
+                required
+            >
+
+            <label>Fecha llegada:</label>
+            <input
+                type="datetime-local"
+                name="fecha_llegada"
+                value="<%= viaje.fecha_llegada ? new Date(viaje.fecha_llegada).toISOString().slice(0,16) : '' %>"
+            >
+
+            <label>Estado:</label>
+            <select name="estado">
+                <option
+                    value="en_viaje"
+                    <%= viaje.estado === 'en_viaje' ? 'selected' : '' %>
+                >
+                    En viaje
+                </option>
+                <option
+                    value="finalizado"
+                    <%= viaje.estado === 'finalizado' ? 'selected' : '' %>
+                >
+                    Finalizado
+                </option>
+            </select>
+
+            <label>Observaciones:</label>
+            <textarea name="observaciones"><%= viaje.observaciones %></textarea>
+            <button type="submit">
+                Guardar cambios
+            </button>
+        </form>
+        <a href="/viajes"> Volver </a>
+    </div>
+</body>
+</html>

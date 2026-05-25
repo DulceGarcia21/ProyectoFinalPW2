@@ -10,4 +10,8 @@ router.post('/viajes/agregar', verificarAdmin, viajeController.agregarViaje);
 
 router.post('/viajes/eliminar/:id', verificarAdmin, viajeController.eliminarViaje);
 
+router.get('/viajes/editar/:id',verificarAdmin,viajeController.mostrarEditarViaje);
+
+router.post('/viajes/editar/:id',verificarAdmin,viajeController.actualizarViaje);
+
 module.exports = router;
